@@ -13,7 +13,7 @@ a,b,c = map(int,sys.stdin.readline().strip().split())
 
 def div_mup(a,b):
     if b == 1:
-        return a%c
+        return a
     elif b%2 == 1:
         return div_mup(a, b//2)**2*a%c
     else:
@@ -21,4 +21,4 @@ def div_mup(a,b):
 result = div_mup(a,b)
 
 
-print(result)
+print(result%c)
