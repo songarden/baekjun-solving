@@ -25,6 +25,7 @@ def dijkstra(start):
     global end
     costMin = [float('inf')]*(n+1)
     heap = []
+    heapq.heapify(heap)
     heapq.heappush(heap,[0,start])
     costMin[start] = 0
     while heap:
