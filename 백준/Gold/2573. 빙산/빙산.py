@@ -51,31 +51,35 @@ def bfs(x,y):
 
 
 # ice_to_water()
+def main():
+    global visited
+    global n
+    global m
+    result = 0
+    while True:
+        count = 0
+        for i in range(n):
+            for j in range(m):
+                if ice_world[i][j] > 0 and not visited[i][j]:
+                    count += 1
+                    if count > 1:
+                        return result
+                    bfs(i,j)
+                    
 
-result = 0
-while True:
-    visited = [[False for _ in range(m)]for _ in range(n)]
-    count = 0
-    for i in range(n):
-        for j in range(m):
-            if ice_world[i][j] > 0 and not visited[i][j]:
-                count += 1
-                bfs(i,j)
-                
-    
-    # for i in range(n):
-    #     for j in range(m):
-    #         if ice_world[i][j] > 0 and not visited[i][j]:
-    #             dfs(i,j)
-    #             count += 1
-    if count > 1:
-        break
-    elif count == 0:
-        result = 0
-        break
-    for x,y,icing in watering:
-        ice_world[x][y] = icing
-    watering.clear()
-    result += 1
+        # for i in range(n):
+        #     for j in range(m):
+        #         if ice_world[i][j] > 0 and not visited[i][j]:
+        #             dfs(i,j)
+        #             count += 1
+        if count > 1:
+            return result
+        elif count == 0:
+            return 0
+        for x,y,icing in watering:
+            ice_world[x][y] = icing
+        watering.clear()
+        result += 1
+        visited = [[False for _ in range(m)]for _ in range(n)]
 
-print(result)
+print(main())
