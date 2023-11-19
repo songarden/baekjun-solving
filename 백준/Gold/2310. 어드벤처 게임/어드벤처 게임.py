@@ -1,18 +1,17 @@
 from collections import deque
-import heapq
 import sys
+
 
 def func(start,end,rooms,visitedCost):
     cost = 0
-    heap = []
-    heapq.heapify(heap)
-    heapq.heappush(heap,(-1*cost,start))
+    queue = deque()
+    queue.append((start,cost))
     visitedCost[start] = cost
-    while heap:
-        reverseCost , nowIndex = heapq.heappop(heap)
-        nowCost = -1 *reverseCost
+    while queue:
+        nowIndex , nowCost = queue.popleft()
         alpha = rooms[nowIndex-1][0]
         roomCost = int(rooms[nowIndex-1][1])
+        
         if alpha == 'L':
             if nowCost < roomCost:
                 nowCost = roomCost
@@ -24,8 +23,8 @@ def func(start,end,rooms,visitedCost):
             return 'Yes'
         i = 2
         while rooms[nowIndex-1][i] != '0' :
-            if visitedCost[int(rooms[nowIndex-1][i])] < nowCost and not int(rooms[nowIndex-1][i]) == nowIndex:
-                heapq.heappush(heap,(-1*nowCost , int(rooms[nowIndex-1][i])))
+            if visitedCost[int(rooms[nowIndex-1][i])] < nowCost:
+                queue.append((int(rooms[nowIndex-1][i]) , nowCost))
                 visitedCost[int(rooms[nowIndex-1][i])] = nowCost
             i += 1
     return 'No'
